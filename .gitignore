@@ -218,3 +218,16 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# MMA3001 Project - Dataset files
+# Keep large datasets locally, not in the GitHub repository.
+data/raw/
+data/cleaned/
+
+# YOLO training outputs
+# Store large training outputs locally.
+runs/
+
+# Trained model weights
+# Model files can be large and should be stored separately.
+*.pt
