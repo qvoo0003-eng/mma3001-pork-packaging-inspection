@@ -1,8 +1,8 @@
-# MMA3001 — Automated Pork Rasher Packaging Inspection
+# MMA3001 â€” Automated Pork Rasher Packaging Inspection
 
 A numerical methods and machine learning project for detecting packaging defects in pork rasher products using YOLOv8n and spatial finite differences.
 
-**Unit:** MMA3001 — Numerical Methods and Machine Learning  
+**Unit:** MMA3001 â€” Numerical Methods and Machine Learning  
 **University:** Monash University  
 **Author:** Quoc Hung Vo  
 **Language:** Python 3.12
@@ -27,11 +27,11 @@ The intended application is to support preliminary quality inspection rather tha
 
 Two computational approaches are investigated.
 
-**Machine Learning — YOLOv8n**
+**Machine Learning â€” YOLOv8n**
 
 A pretrained YOLOv8n object detection model is fine-tuned to identify and localise packaging defects using bounding boxes.
 
-**Numerical Methods — Finite Differences**
+**Numerical Methods â€” Finite Differences**
 
 Spatial finite differences are implemented to calculate image intensity gradients. Analytically known derivatives are used to verify numerical accuracy and convergence.
 
@@ -39,7 +39,7 @@ Gaussian blur experiments investigate changes in image edge strength and the cor
 
 ## 3. Dataset
 
-**Source:** [Pork Rasher Error-Packaging — Roboflow Universe, Version 4](https://universe.roboflow.com/hello-2aqe0/pork-rasher-error-packaging/dataset/4)
+**Source:** [Pork Rasher Error-Packaging â€” Roboflow Universe, Version 4](https://universe.roboflow.com/hello-2aqe0/pork-rasher-error-packaging/dataset/4)
 
 The supplied dataset contains 3,549 images in YOLO detection format.
 
@@ -85,9 +85,9 @@ The requirements are configured for CUDA 12.8. A compatible NVIDIA GPU and drive
 
 Run all commands from the repository root.
 
-**Step 1 — Dataset Audit**
+**Step 1 â€” Dataset Audit**
 
-Place the downloaded Version 4 ZIP inside `data/raw/` using the filename expected by the scripts.
+Create `data/raw/` if necessary, then place the downloaded Version 4 ZIP inside it. See [Reproducibility](docs/REPRODUCIBILITY.md) for the exact filename and dataset SHA-256.
 
 ```powershell
 python src/data_audit.py
@@ -95,7 +95,7 @@ python src/data_audit.py
 
 Audit results are saved to `results/data_audit.json`.
 
-**Step 2 — Dataset Cleaning**
+**Step 2 â€” Dataset Cleaning**
 
 ```powershell
 python -m src.data_cleaning --output data/cleaned/v1
@@ -103,7 +103,7 @@ python -m src.data_cleaning --output data/cleaned/v1
 
 The cleaned dataset and its `data.yaml` are generated under `data/cleaned/v1/`.
 
-**Step 3 — Automated Tests**
+**Step 3 â€” Automated Tests**
 
 ```powershell
 python -m pytest tests/test_phase1.py -q
@@ -111,7 +111,7 @@ python -m pytest tests/test_phase1.py -q
 
 The verified development run passed 40 tests.
 
-**Step 4 — YOLO Training**
+**Step 4 â€” YOLO Training**
 
 Optional one-epoch smoke test:
 
@@ -129,7 +129,7 @@ Main training uses 25 epochs, early stopping patience 7, 640-pixel input size an
 
 Training outputs are stored under `runs/detect/`.
 
-**Step 5 — Finite Difference Verification**
+**Step 5 â€” Finite Difference Verification**
 
 ```powershell
 python -m src.finite_difference --mode verify
@@ -141,19 +141,19 @@ Analyse validation images:
 python -m src.finite_difference --mode analyze
 ```
 
-**Step 6 — Blur Robustness**
+**Step 6 â€” Blur Robustness**
 
 ```powershell
 python -m src.blur_robustness
 ```
 
-**Step 7 — Inference Resolution Comparison**
+**Step 7 â€” Inference Resolution Comparison**
 
 ```powershell
 python -m src.optimise_inference
 ```
 
-**Step 8 — Final Test Evaluation**
+**Step 8 â€” Final Test Evaluation**
 
 ```powershell
 python -m src.final_evaluation
@@ -161,7 +161,7 @@ python -m src.final_evaluation
 
 The last three evaluation scripts expect the trained checkpoint at `runs/detect/main-1eqhuzvr/weights/best.pt`. If training produces a differently named experiment directory, update the checkpoint paths before running them.
 
-The trained checkpoint is currently excluded from Git tracking. It can be reproduced through the training workflow.
+The final trained checkpoint is included in Git at `runs/detect/main-1eqhuzvr/weights/best.pt`. See [Reproducibility](docs/REPRODUCIBILITY.md) for its SHA-256 and dataset setup instructions.
 
 ## 6. Main Experimental Results
 
@@ -172,11 +172,11 @@ Numerical verification passed all 10 checks.
 - Interior centred differences demonstrated approximately second-order convergence.
 - Forward and backward boundary differences demonstrated approximately first-order convergence.
 
-Mean image gradient magnitude decreased by 24.319% at Gaussian blur σ = 1 and 49.944% at σ = 2.
+Mean image gradient magnitude decreased by 24.319% at Gaussian blur Ïƒ = 1 and 49.944% at Ïƒ = 2.
 
 ### YOLO Blur Robustness
 
-| Blur σ | mAP@50 | mAP@50–95 |
+| Blur Ïƒ | mAP@50 | mAP@50â€“95 |
 |---|---:|---:|
 | 0 | 0.5551 | 0.3310 |
 | 1 | 0.4874 | 0.2784 |
@@ -186,7 +186,7 @@ These results show that detection performance changes under image blur, although
 
 ### Inference Resolution Optimisation
 
-| Resolution | mAP@50 | mAP@50–95 | Inference (ms/image) |
+| Resolution | mAP@50 | mAP@50â€“95 | Inference (ms/image) |
 |---|---:|---:|---:|
 | 480 | 0.5296 | 0.2804 | 2.0788 |
 | 640 | 0.5551 | 0.3310 | 2.9033 |
@@ -206,7 +206,7 @@ Reported inference timing excludes preprocessing and postprocessing and is subje
 | Recall | 0.4766 |
 | F1 | 0.3944 |
 | mAP@50 | 0.4609 |
-| mAP@50–95 | 0.2365 |
+| mAP@50â€“95 | 0.2365 |
 
 The final test configuration was fixed before examining test results.
 
@@ -222,13 +222,13 @@ The final test configuration was fixed before examining test results.
 
 ## 8. Project Structure
 
-- `src/` — Python implementations
-- `tests/` — Automated verification tests
-- `data/` — Local dataset storage
-- `results/` — Numerical and experimental outputs
-- `runs/` — Local training results and checkpoints
-- `docs/` — Source code documentation
-- `reports/` — Project documentation
+- `src/` â€” Python implementations
+- `tests/` â€” Automated verification tests
+- `data/` â€” Local dataset storage
+- `results/` â€” Numerical and experimental outputs
+- `runs/` â€” Local training results and checkpoints
+- `docs/` â€” Source code documentation
+- `reports/` â€” Project documentation
 
 ## 9. AI Assistance
 

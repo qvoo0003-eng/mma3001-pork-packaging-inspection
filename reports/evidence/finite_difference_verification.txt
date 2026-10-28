@@ -1,0 +1,28 @@
+MMA3001 — Finite Difference Synthetic Verification
+Command: python -m src.finite_difference --mode verify
+Student-run terminal output, 27 October 2026 (Python 3.12, Windows)
+
+SYNTHETIC NUMERICAL VERIFICATION
+No dataset images or detector predictions are used.
+
+PASS | Constant function | max error=0.000e+00, tolerance=1.0e-12
+PASS | Linear function, including every boundary | x error=8.882e-16, y error=1.776e-15, magnitude error=1.332e-15, tolerance=1.0e-12
+PASS | Forward/backward boundary formulas | error against exact one-sided slopes=4.441e-15, tolerance=1.0e-12
+PASS | 2x2 unsigned input | max error=0.000e+00, tolerance=1.0e-12
+PASS | Invalid input rejection | rejected 7/7 invalid inputs
+
+Smooth function: f(x,y)=sin(x)+cos(y), x,y in [0.2, 1.2]
+Errors are maximum absolute errors; interiors exclude outer pixels.
+   n          h       interior_x   interior_y   boundary_x   boundary_y
+  17    0.062500   6.2862e-04   5.9076e-04   2.8881e-02   3.0488e-02
+  33    0.031250   1.5842e-04   1.4977e-04   1.4503e-02   1.5280e-02
+  65    0.015625   3.9747e-05   3.7689e-05   7.2667e-03   7.6485e-03
+ 129    0.007812   9.9536e-06   9.4521e-06   3.6371e-03   3.8263e-03
+PASS | Smooth analytical derivative accuracy, finest grid | interior max=9.954e-06 <= 2e-5; boundary max=3.826e-03 <= 1e-2
+PASS | Horizontal centred convergence | observed orders=[1.9884 1.9948 1.9976]; required 2.0 +/- 0.2 with decreasing errors
+PASS | Vertical centred convergence | observed orders=[1.9798 1.9906 1.9955]; required 2.0 +/- 0.2 with decreasing errors
+PASS | Horizontal boundary convergence | observed orders=[0.9938 0.997  0.9985]; required 1.0 +/- 0.2 with decreasing errors
+PASS | Vertical boundary convergence | observed orders=[0.9966 0.9984 0.9992]; required 1.0 +/- 0.2 with decreasing errors
+
+Overall: PASS (10/10 checks passed)
+These checks verify synthetic derivatives, not real-image accuracy.
